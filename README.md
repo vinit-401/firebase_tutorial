@@ -8,7 +8,17 @@ This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
 
-Steps:
+## screenshots
+<div>
+<img src="./screenshot/signup.png" height="300">.
+<img src="./screenshot/login.png" height="300">.
+<img src="./screenshot/home.png" height="300">.
+<img src="./screenshot/add.png" height="300">.
+<img src="./screenshot/edit.png" height="300">.
+</div>
+
+
+## Steps:
 1. pub get 
      ```
       firebase_auth: ^5.4.2

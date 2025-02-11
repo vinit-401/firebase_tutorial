@@ -32,55 +32,73 @@ class _AddScreenState extends State<AddScreen> {
         backgroundColor: Colors.white,
         title: Text('Add Data'),
       ),
-      body: Form(
-        key: _addFormKey,
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            spacing: 15,
-            children: [
-              TextFormField(
-                controller: _nameController,
-                validator: (value) {
-                  if (value != null) {
-                    if (value.trim().length < 3) {
-                      return 'Minimum 3 Characters are required';
-                    } else if (value.isEmpty) {
-                      return 'required field';
-                    }
-                  }
-                  return null;
-                },
-                decoration: decoration('Name'),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [
+                  Colors.white,
+                  Colors.white70,
+                  Colors.white,
+                  Colors.greenAccent.shade100,
+                ],
               ),
-              TextFormField(
-                  controller: _pinController,
-                  keyboardType: TextInputType.number,
-                  validator: (value) {
-                    if (value != null) {
-                      if (value.trim().length < 3) {
-                        return 'Minimum 3 Characters are required';
-                      } else if (value.isEmpty) {
-                        return 'required field';
-                      }
-                    }
-                    return null;
-                  },
-                  decoration: decoration('Pin')),
-              TextButton(
-                onPressed: () {
-                  if (_addFormKey.currentState!.validate()) {
-                    FirebaseController.uploadData(_nameController.text.trim(), int.parse(_pinController.text.trim()));
-                    _pinController.clear();
-                    _nameController.clear();
-                    Navigator.pop(context);
-                  }
-                },
-                child: Text('Add'),
-              )
-            ],
+            ),
           ),
-        ),
+          Form(
+            key: _addFormKey,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                spacing: 15,
+                children: [
+                  TextFormField(
+                    controller: _nameController,
+                    validator: (value) {
+                      if (value != null) {
+                        if (value.trim().length < 3) {
+                          return 'Minimum 3 Characters are required';
+                        } else if (value.isEmpty) {
+                          return 'required field';
+                        }
+                      }
+                      return null;
+                    },
+                    decoration: decoration('Name'),
+                  ),
+                  TextFormField(
+                      controller: _pinController,
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value != null) {
+                          if (value.trim().length < 3) {
+                            return 'Minimum 3 Characters are required';
+                          } else if (value.isEmpty) {
+                            return 'required field';
+                          }
+                        }
+                        return null;
+                      },
+                      decoration: decoration('Pin')),
+                  TextButton(
+                    onPressed: () {
+                      if (_addFormKey.currentState!.validate()) {
+                        FirebaseController.uploadData(_nameController.text.trim(), int.parse(_pinController.text.trim()));
+                        _pinController.clear();
+                        _nameController.clear();
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: Text('Add'),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
