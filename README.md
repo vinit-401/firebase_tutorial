@@ -31,7 +31,7 @@ A few resources to get you started if this is your first Flutter project:
       );
      ```
 3. Controller... setup and form validators
-4. StreamBuilder... the asynchronous checking for sign in or home page.... can also user iITokenChanges..
+4. StreamBuilder... the asynchronous checking for sign in or home page.... can also user iDTokenChanges..
     ``` 
    StreamBuilder(
            stream: FirebaseAuth.instance.authStateChanges(),
