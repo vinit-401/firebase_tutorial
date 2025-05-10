@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/controllers/controller.dart';
 import 'package:untitled/ui/add_screen.dart';
@@ -11,9 +12,47 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late final FirebaseMessaging _messaging;
+  @override
+  void initState() {
+    super.initState();
+    _initFCM();
+  }
+
+  void _initFCM() async {
+    _messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await _messaging.requestPermission();
+    print('🔐 Permission granted: ${settings.authorizationStatus}');
+
+    // 🔹 Get device token
+    String? token = await _messaging.getToken();
+    print("📲 FCM Token: $token");
+
+    // 🔹 Foreground message handler
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('📥 Foreground message: ${message.notification?.title}');
+      // You can show a local notification here using flutter_local_notifications
+    });
+
+
+    // 🔹 When app is opened from background by tapping on notification
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('📲 App opened from notification: ${message.notification?.title}');
+      // Navigate or handle logic based on notification
+    });
+
+    // 🔹 Check for initial message when app is launched via notification
+    RemoteMessage? initialMessage = await _messaging.getInitialMessage();
+    if (initialMessage != null) {
+      print('🚀 App launched via notification: ${initialMessage.notification?.title}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     FirebaseController.getDataFromDatabase();
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
