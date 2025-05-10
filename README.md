@@ -76,3 +76,47 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## 🛠 Features
+
+- FCM token generation
+- Foreground notification handling
+- Background and terminated notification handling
+- Local display of FCM messages with full customization
+- Android and iOS support
+
+---
+
+## 📦 Packages Used
+
+- [`firebase_messaging`](https://pub.dev/packages/firebase_messaging)
+- [`flutter_local_notifications`](https://pub.dev/packages/flutter_local_notifications)
+
+---
+
+## 📁 File: `notification_service.dart`
+
+This file defines the `NotificationService` class and the Firebase messaging background handler.
+
+### 🔧 Initialization Flow
+
+1. Requests notification permissions
+2. Sets up local notification channels
+3. Initializes FCM background and foreground message listeners
+4. Displays FCM messages using `flutter_local_notifications`
+
+---
+
+## 🔑 Setup Instructions
+
+### 1. Firebase Configuration
+
+- Add Firebase to your Flutter project using [official docs](https://firebase.flutter.dev/docs/overview).
+- Add `google-services.json` (Android) and `GoogleService-Info.plist` (iOS).
+
+### 2. Android Setup
+
+- Add permission in `AndroidManifest.xml`:
+```xml
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
